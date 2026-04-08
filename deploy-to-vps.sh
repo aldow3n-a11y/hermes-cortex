@@ -4,8 +4,8 @@
 
 # VPS Credentials - UPDATE THESE BEFORE RUNNING
 VPS_USER="root"
-VPS_HOST="43.134.227.2"
-VPS_PASS="UPDATE_ME"  # Run: ssh root@43.134.227.2 to get current password
+VPS_HOST="100.101.147.71"
+VPS_PASS="pSe-zaU-tM4-e2T"
 LOCAL_FILE="/HOME/workspace/cortex/landing-page.html"
 
 # Remote paths to try
