@@ -2,10 +2,10 @@
 # CORTEX Deployment Script for aldowen.com
 # Run this on your local machine
 
-# VPS Credentials
+# VPS Credentials - UPDATE THESE BEFORE RUNNING
 VPS_USER="root"
 VPS_HOST="43.134.227.2"
-VPS_PASS="pSe-zaU-tM4-e2T"
+VPS_PASS="UPDATE_ME"  # Run: ssh root@43.134.227.2 to get current password
 LOCAL_FILE="/HOME/workspace/cortex/landing-page.html"
 
 # Remote paths to try
