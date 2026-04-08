@@ -2,10 +2,21 @@
 # CORTEX Deployment Script for aldowen.com
 # Run this on your local machine
 
-# VPS Credentials - UPDATE THESE BEFORE RUNNING
-VPS_USER="root"
-VPS_HOST="100.101.147.71"
-VPS_PASS="pSe-zaU-tM4-e2T"
+# VPS Credentials - SET THESE BEFORE RUNNING
+# Option 1: Set environment variables (recommended)
+#   export VPS_HOST="100.101.147.71"
+#   export VPS_PASS="your-password-here"
+#
+# Option 2: Edit this file directly (not recommended for shared repos)
+
+VPS_USER="${VPS_USER:-root}"
+VPS_HOST="${VPS_HOST:-100.101.147.71}"
+VPS_PASS="${VPS_PASS:-}"  # Must be set via environment variable
+
+if [ -z "$VPS_PASS" ]; then
+    echo "❌ VPS_PASS not set. Run: export VPS_PASS='your-password' first"
+    exit 1
+fi
 LOCAL_FILE="/HOME/workspace/cortex/landing-page.html"
 
 # Remote paths to try
