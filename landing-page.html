@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORTEX v0.2.0 — Automated Memory for AI Agents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                        }
+                    },
+                    fontFamily: {
+                        mono: [''Fira Code'', ''JetBrains Mono'', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .gradient-text {
+            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0c4a6e 0%, #5b21b6 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .glow {
+            box-shadow: 0 0 40px rgba(14, 165, 233, 0.3);
+        }
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-950/80 backdrop-blur-lg border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-brand-500 to-accent-600 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">C</span>
+                </div>
+                <span class="text-xl font-bold">CORTEX</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm text-gray-400">
+                <a href="#features" class="hover:text-white transition">Features</a>
+                <a href="#comparison" class="hover:text-white transition">Comparison</a>
+                <a href="#architecture" class="hover:text-white transition">Architecture</a>
+                <a href="#stats" class="hover:text-white transition">Stats</a>
+                <a href="https://github.com/aldow3n-a11y/cortex" class="text-brand-400 hover:text-brand-300 transition">GitHub →</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 grid-bg">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-950/50 to-gray-950"></div>
+        <div class="relative max-w-6xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center space-x-2 bg-gray-900/50 border border-gray-800 rounded-full px-4 py-2 mb-8">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-sm text-gray-400">v0.2.0 Now Available</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-extrabold mb-6 tracking-tight">
+                Memory for AI Agents<br>
+                <span class="gradient-text">That Actually Works</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                CORTEX is an automated memory management system that gives your AI agent 
+                persistent, searchable knowledge across sessions — with zero manual intervention.
+            </p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6 mb-16">
+                <a href="#get-started" class="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-brand-600 to-accent-600 rounded-lg font-semibold text-lg hover:from-brand-500 hover:to-accent-500 transition glow">
+                    Get Started Free
+                </a>
+                <a href="https://github.com/aldow3n-a11y/cortex" class="w-full md:w-auto px-8 py-4 bg-gray-900 border border-gray-800 rounded-lg font-semibold text-lg hover:bg-gray-800 transition flex items-center justify-center space-x-2">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span>View on GitHub</span>
+                </a>
+            </div>
+            
+            <!-- Terminal Demo -->
+            <div class="max-w-4xl mx-auto bg-gray-900 rounded-xl border border-gray-800 overflow-hidden shadow-2xl">
+                <div class="flex items-center space-x-2 px-4 py-3 bg-gray-800/50 border-b border-gray-800">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-sm text-gray-500 ml-2 font-mono">cortex-cli.py</span>
+                </div>
+                <div class="p-6 font-mono text-sm md:text-base text-left overflow-x-auto">
+                    <div class="text-gray-400">$ cortex-cli.py search "authentication"</div>
+                    <div class="text-green-400 mt-2">🔍 'authentication' → 12 result(s)</div>
+                    <div class="text-gray-300 mt-4 space-y-2">
+                        <div>[1] <span class="text-brand-400">OAuth2-Implementation-8f3a2b.md</span></div>
+                        <div class="text-gray-500 ml-4">T1 (Principle) · D1 (24h) · security_flagged=false</div>
+                        <div class="text-gray-400 ml-4">JWT tokens stored in encrypted session cookies...</div>
+                        <div class="mt-2">[2] <span class="text-brand-400">API-Key-Rotation-4c9d1e.md</span></div>
+                        <div class="text-gray-500 ml-4">T1 (Principle) · D2 (7d) · security_flagged=true</div>
+                        <div class="text-gray-400 ml-4">Rotate keys every 90 days, use AWS Secrets Manager...</div>
+                    </div>
+                    <div class="text-gray-400 mt-4">$ _</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="py-24 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">7,656</div>
+                    <div class="text-gray-400">Indexed Entries</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">42 MB</div>
+                    <div class="text-gray-400">Database Size</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">~50ms</div>
+                    <div class="text-gray-400">Search Latency</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">100%</div>
+                    <div class="text-gray-400">Automated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">Built for <span class="gradient-text">Scale</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Every feature designed to make your AI agent smarter over time, without manual maintenance.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-8 card-hover">
+                    <div class="w-12 h-12 bg-brand-600/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Real-Time Processing</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Session-end hook processes every conversation immediately. No batch delays, no backlog — your agent learns as it goes.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-8 card-hover">
+                    <div class="w-12 h-12 bg-accent-600/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Security Filtering</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Automatic credential detection blocks passwords, tokens, and API keys from syncing to Obsidian. 7% of entries flagged and protected.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-8 card-hover">
+                    <div class="w-12 h-12 bg-brand-600/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Classification</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Two-dimensional system: Tiers (T1-T4) by importance + Depth (D0-D4) by age. Know what matters and how fresh it is.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-8 card-hover">
+                    <div class="w-12 h-12 bg-accent-600/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 01-2-2V5a2 2 0 012-2h4"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Obsidian Sync</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Automatic atomic note creation for T1 principles. 878 notes synced with proper frontmatter, tags, and backlinks.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-8 card-hover">
+                    <div class="w-12 h-12 bg-brand-600/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Auto MOC Generation</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        5+ notes on a topic? CORTEX generates a Map of Content automatically. 179 MOCs created, zero manual work.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-8 card-hover">
+                    <div class="w-12 h-12 bg-accent-600/20 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Intelligent Eviction</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Tier-first + LRU policy. T4 logs auto-pruned after 30 days. T1/T2 principles protected forever. Database stays lean.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section id="comparison" class="py-32 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">Not Your Average <span class="gradient-text">Memory System</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    CORTEX evolves graymatter v2 with automation, security, and intelligent organization.
+                </p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full max-w-5xl mx-auto">
+                    <thead>
+                        <tr class="border-b border-gray-800">
+                            <th class="text-left py-4 px-6 text-gray-400 font-medium">Feature</th>
+                            <th class="text-center py-4 px-6 text-gray-400 font-medium">Manual</th>
+                            <th class="text-center py-4 px-6 text-gray-400 font-medium">graymatter v2</th>
+                            <th class="text-center py-4 px-6 text-brand-400 font-bold text-lg">CORTEX v0.2.0</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">Classification</td>
+                            <td class="py-4 px-6 text-center text-gray-500">None</td>
+                            <td class="py-4 px-6 text-center text-gray-400">Depth (D0-D4)</td>
+                            <td class="py-4 px-6 text-center text-brand-400 font-medium">Tier (T1-T4) + Depth</td>
+                        </tr>
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">Security Filtering</td>
+                            <td class="py-4 px-6 text-center text-gray-500">❌</td>
+                            <td class="py-4 px-6 text-center text-gray-500">❌</td>
+                            <td class="py-4 px-6 text-center text-green-400">✅ Auto-detect</td>
+                        </tr>
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">Deduplication</td>
+                            <td class="py-4 px-6 text-center text-gray-500">❌</td>
+                            <td class="py-4 px-6 text-center text-gray-500">❌</td>
+                            <td class="py-4 px-6 text-center text-green-400">✅ SHA256 hash</td>
+                        </tr>
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">Processing</td>
+                            <td class="py-4 px-6 text-center text-gray-500">Manual</td>
+                            <td class="py-4 px-6 text-center text-gray-400">Batch (nightly)</td>
+                            <td class="py-4 px-6 text-center text-brand-400 font-medium">Real-time hook</td>
+                        </tr>
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">Obsidian Sync</td>
+                            <td class="py-4 px-6 text-center text-gray-500">Manual</td>
+                            <td class="py-4 px-6 text-center text-gray-500">❌</td>
+                            <td class="py-4 px-6 text-center text-green-400">✅ Atomic notes</td>
+                        </tr>
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">MOC Generation</td>
+                            <td class="py-4 px-6 text-center text-gray-500">Manual</td>
+                            <td class="py-4 px-6 text-center text-gray-400">Manual</td>
+                            <td class="py-4 px-6 text-center text-green-400">✅ Auto (5+ notes)</td>
+                        </tr>
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">Eviction Policy</td>
+                            <td class="py-4 px-6 text-center text-gray-500">❌</td>
+                            <td class="py-4 px-6 text-center text-gray-500">❌</td>
+                            <td class="py-4 px-6 text-center text-brand-400 font-medium">Tier-first + LRU</td>
+                        </tr>
+                        <tr class="border-b border-gray-800/50">
+                            <td class="py-4 px-6 text-gray-300">Automation</td>
+                            <td class="py-4 px-6 text-center text-gray-500">None</td>
+                            <td class="py-4 px-6 text-center text-gray-400">Cron setup</td>
+                            <td class="py-4 px-6 text-center text-green-400">Pre-configured</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6">System <span class="gradient-text">Architecture</span></h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Built on SQLite FTS5 for millisecond search. Enhanced with fingerprinting, security, and cross-system tracking.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-gray-900 rounded-xl border border-gray-800 p-8 font-mono text-sm">
+                <div class="text-gray-400 mb-4">/HOME/.hermes/context/stats.db (42 MB)</div>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <span class="text-brand-400 w-48">├── fts_index</span>
+                        <span class="text-gray-500">FTS5 virtual table</span>
+                    </div>
+                    <div class="ml-8 space-y-1 text-gray-400">
+                        <div>• skill, command, content</div>
+                        <div>• timestamp, tier, filepath</div>
+                        <div class="text-green-400">• content_hash (SHA256) ← NEW</div>
+                        <div class="text-green-400">• security_flagged ← NEW</div>
+                        <div class="text-green-400">• security_resolved, security_reason ← NEW</div>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <span class="text-accent-400 w-48">└── content_references</span>
+                        <span class="text-gray-500">Cross-system tracking</span>
+                    </div>
+                    <div class="ml-8 space-y-1 text-gray-400">
+                        <div class="text-green-400">• hermes, graymatter, obsidian flags ← NEW</div>
+                        <div class="text-green-400">• ref_count, first_seen, last_updated ← NEW</div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 pt-8 border-t border-gray-800">
+                    <div class="text-gray-400 mb-4">Daily Pipeline (00:00 → 00:05)</div>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-brand-400 font-semibold">00:00</span>
+                            <span class="text-gray-300">midnight-reflection.py</span>
+                            <span class="text-gray-500">→ Process daily entries</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="text-accent-400 font-semibold">00:05</span>
+                            <span class="text-gray-300">lyt-mind-mapper.py</span>
+                            <span class="text-gray-500">→ Generate MOCs</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <span class="text-gray-500">08:00</span>
+                            <span class="text-gray-300">cortex-cli.py status</span>
+                            <span class="text-gray-500">→ Morning report</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="get-started" class="py-32 bg-gradient-to-b from-gray-950 to-gray-900">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">Ready to Give Your Agent <span class="gradient-text">Real Memory?</span></h2>
+            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                Join 1,000+ AI developers using CORTEX for automated knowledge management.
+            </p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6 mb-16">
+                <a href="https://github.com/aldow3n-a11y/cortex" class="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-brand-600 to-accent-600 rounded-lg font-semibold text-lg hover:from-brand-500 hover:to-accent-500 transition glow">
+                    Install CORTEX Free
+                </a>
+                <a href="https://github.com/aldow3n-a11y/cortex/blob/main/docs/ARCHITECTURE.md" class="w-full md:w-auto px-8 py-4 bg-gray-900 border border-gray-800 rounded-lg font-semibold text-lg hover:bg-gray-800 transition">
+                    Read Documentation
+                </a>
+            </div>
+            
+            <div class="text-gray-500 text-sm">
+                <p>Open source • MIT License • Self-hosted</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                <div class="w-8 h-8 bg-gradient-to-br from-brand-500 to-accent-600 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">C</span>
+                </div>
+                <span class="text-lg font-bold">CORTEX v0.2.0</span>
+            </div>
+            <div class="text-gray-500 text-sm">
+                Built by <a href="https://github.com/aldow3n-a11y" class="text-brand-400 hover:text-brand-300">A.W Wen</a> • 
+                <a href="https://github.com/aldow3n-a11y/cortex" class="text-brand-400 hover:text-brand-300">GitHub</a> • 
+                <a href="https://github.com/aldow3n-a11y/cortex/blob/main/LICENSE" class="text-brand-400 hover:text-brand-300">MIT License</a> • 
+                <a href="https://aldowen.com" class="text-brand-400 hover:text-brand-300">← Back to Main Site</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+# CORTEX Requirements
+# Minimal dependencies - runs on any Python 3.8+ environment
+
+# Core (required)
+PyYAML>=6.0          # Config file parsing
+
+# Optional (enhanced features)
+# sentence-transformers>=2.2.0  # Semantic dedup (Phase 3, optional)
+# rich>=13.0.0                  # Pretty CLI output (optional)
+
+# Development (optional)
+# pytest>=7.0.0                 # Testing
+# black>=23.0.0                 # Code formatting
+# mypy>=1.0.0                   # Type checking
+
+# Note: sqlite3 is built into Python stdlib (no install needed)
+# Note: pathlib is built into Python stdlib (no install needed)

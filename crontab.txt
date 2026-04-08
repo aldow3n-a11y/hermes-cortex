@@ -1,0 +1,39 @@
+# CORTEX Automation Cron Jobs
+# Edit with: crontab -e
+# View with: crontab -l
+# Logs: ~/.hermes/logs/cron-*.log
+
+# Environment setup
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin:/home/manager/.local/bin
+HOME=/home/manager
+
+# ============================================
+# DAILY JOBS
+# ============================================
+
+# Midnight Reflection — Daily tier-based processing (00:00)
+0 0 * * * cd /HOME/workspace/cortex && python scripts/midnight-reflection.py >> /home/manager/.hermes/logs/cron-midnight.log 2>&1
+
+# LYT Mind Mapper — Generate MOCs after midnight reflection (00:05)
+5 0 * * * cd /HOME/workspace/cortex && python scripts/lyt-mind-mapper.py --generate >> /home/manager/.hermes/logs/cron-lyt.log 2>&1
+
+# Health Check Status — Morning report (08:00)
+0 8 * * * cd /HOME/workspace/cortex && python scripts/cortex-cli.py status >> /home/manager/.hermes/logs/cron-status.log 2>&1
+
+# ============================================
+# WEEKLY JOBS
+# ============================================
+
+# Memory Pruner — Weekly cleanup with backup (Sunday 03:00)
+0 3 * * 0 cd /HOME/workspace/cortex && python scripts/memory-pruner.py --backup --execute >> /home/manager/.hermes/logs/cron-pruner.log 2>&1
+
+# ============================================
+# MONTHLY JOBS
+# ============================================
+
+# Full Sync Pipeline — First of month (01:00)
+0 1 1 * * cd /HOME/workspace/cortex && python scripts/cortex-cli.py sync >> /home/manager/.hermes/logs/cron-sync.log 2>&1
+
+# Monthly Report — First of month (09:00)
+0 9 1 * * cd /HOME/workspace/cortex && python scripts/cortex-cli.py health-check >> /home/manager/.hermes/logs/cron-health.log 2>&1
